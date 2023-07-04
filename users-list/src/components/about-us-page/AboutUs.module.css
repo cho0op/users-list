@@ -1,0 +1,14 @@
+.content{
+    margin: 3% 20%;
+    padding: 3%;
+    background: #eaeafe;
+}
+
+.title{
+    font-size: 2rem;
+}
+
+.text{
+    text-align: justify;
+    padding-top: 0.5%;
+}
