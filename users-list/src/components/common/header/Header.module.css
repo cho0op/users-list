@@ -2,8 +2,14 @@
     display: grid;
     padding: 1% 35%;
     margin: 0.4%;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     justify-items: center;
     align-items: center;
     background: #eaeafe;
+}
+
+@media (max-width:1000px) {
+    .rect {
+        padding: 2.5% 20%;
+    }
 }

@@ -21,6 +21,9 @@ p {
 
 button {
   cursor: pointer;
+  font-family: 'Montserrat';
+  transition: all 0.3s;
+  color:#6868d4;
 }
 
 code {
