@@ -2,8 +2,54 @@ import styles from './TicTacToe.module.css'
 import { useState } from 'react';
 
 const TicTacToe = () => {
-    const [xIsNext, setXIsNext] = useState(true);
-    const [squares, setSquares] = useState(Array(9).fill(null));
+    // история - один большой расширяющийся массив?
+    const [history, setHistory] = useState([Array(9).fill(null)]);
+    const [currentMove, setCurrentMove] = useState(0);
+    const currentSquares = history[currentMove];
+    const xIsNext = currentMove % 2 === 0;
+
+    function handlePlay(copySquares) {
+        // текущая история = история от начала до текущего хода
+        const nextHistory = [...history.slice(0, currentMove + 1), copySquares];
+        setHistory(nextHistory);
+        setCurrentMove(nextHistory.length - 1);
+    }
+
+    function jumpTo(nextMove) {
+        setCurrentMove(nextMove);
+    }
+
+    const moves = history.map((squares, move) => {
+        let description;
+        if (move > 0) {
+            description = 'Go to move #' + move;
+        } else {
+            description = 'Go to game start';
+        }
+        return (
+            <li key={move}>
+                <button className={styles.step} onClick={() => jumpTo(move)}>
+                    {description}
+                </button>
+            </li>
+        );
+    })
+
+    return (
+        <div className={styles.content}>
+            <Board
+                xIsNext={xIsNext}
+                squares={currentSquares}
+                onPlay={handlePlay}
+            />
+            <div className={styles.gameinfo}>
+                <ol>{moves}</ol>
+            </div>
+        </div>
+    )
+}
+
+const Board = ({ xIsNext, squares, onPlay }) => {
 
     function handleClick(i) {
         if (squares[i] || calculateWinner(squares)) {
@@ -17,12 +63,7 @@ const TicTacToe = () => {
         else {
             copySquares[i] = 'O';
         }
-        setSquares(copySquares); // re-render
-        setXIsNext(!xIsNext);
-    }
-
-    function handleResetClick() {
-        setSquares(Array(9).fill(null))
+        onPlay(copySquares)
     }
 
     const winner = calculateWinner(squares);
@@ -35,7 +76,7 @@ const TicTacToe = () => {
     }
 
     return (
-        <div className={styles.content}>
+        <div className={styles.gamefield}>
             <div className={styles.status}>
                 {status}
             </div>
@@ -55,9 +96,6 @@ const TicTacToe = () => {
                 <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
                 <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
             </div>
-            <button className={styles.reset} onClick={() => handleResetClick()}>
-                Reset
-            </button>
         </div>
     )
 }
