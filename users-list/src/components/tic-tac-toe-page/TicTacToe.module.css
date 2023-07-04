@@ -1,0 +1,31 @@
+.content {
+    padding: 3%;
+    display: grid;
+    justify-items: center;
+}
+
+.square{
+    background: #eaeafe;
+    border: 1px solid #fff;
+    width: 4rem;
+    height: 4rem;
+}
+
+.row{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+.status{
+    margin-bottom: 3%;
+}
+
+.reset{
+    margin-top: 3%;
+    background: #eaeafe;
+    border: 1px solid #fff;
+    font-weight: 600;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 1rem;
+}
