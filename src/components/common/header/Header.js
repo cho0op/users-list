@@ -9,6 +9,7 @@ const Header = () => {
                     <div className={styles.rect}>
                         <NavLink className={styles.link} to='/'>Contacts</NavLink>
                         <NavLink className={styles.link} to='/aboutus'>About us</NavLink>
+                        <NavLink className={styles.link} to='/tictactoe'>Tic-Tac-Toe</NavLink>
                     </div>
                 </div>
             </div>

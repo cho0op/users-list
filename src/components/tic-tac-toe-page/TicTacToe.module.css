@@ -1,0 +1,54 @@
+.content {
+    padding: 3% 30%;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width:1000px) {
+    .content {
+        padding: 3% 20%;
+    }
+}
+
+.gamefield {
+    display: grid;
+    justify-items: center;
+}
+
+.square {
+    background: #eaeafe;
+    border: 1px solid #fff;
+    width: 4rem;
+    height: 4rem;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.status {
+    margin-bottom: 10%;
+}
+
+.step {
+    background: #fff;
+    border: none;
+}
+
+.step:hover{
+    background: #eaeafe;
+    border-radius: 1rem;
+}
+
+.gameinfo{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.gameinfo>ol {
+    padding: 0;
+    margin: 0;
+}
