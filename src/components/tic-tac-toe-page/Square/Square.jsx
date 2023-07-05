@@ -1,3 +1,4 @@
+import styles from '../TicTacToe.module.css'
 
 const Square = ({ value, onSquareClick }) => {
     return (

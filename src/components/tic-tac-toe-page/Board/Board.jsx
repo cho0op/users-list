@@ -1,4 +1,4 @@
-import styles from './TicTacToe.module.css'
+import styles from '../TicTacToe.module.css'
 import Square from '../Square/Square';
 import calculateWinner from '../helpers';
 
