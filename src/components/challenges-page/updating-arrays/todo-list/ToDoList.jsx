@@ -29,7 +29,7 @@ export default function ToDoList() {
     setTodos(
       todos.map((todo) => {
         if (todo.id === nextTodo.id) {
-          nextTodo.done = !todo.done;
+          return nextTodo;
         }
         return todo;
       })
