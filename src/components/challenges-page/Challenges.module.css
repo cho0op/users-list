@@ -1,4 +1,6 @@
 .content{
-    padding: 3%;
-
+    padding: 3% 15%;
+    display: grid;
+    grid-template-columns: repeat(2,  1fr);
+    justify-items: center;
 }

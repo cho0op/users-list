@@ -31,7 +31,7 @@ const UpdatingObjects = () => {
     }
 
     return (
-        <>
+        <div>
             <select value={shape.color} onChange={handleColorChange}>
                 <option value="orange">orange</option>
                 <option value="lightpink">lightpink</option>
@@ -41,7 +41,7 @@ const UpdatingObjects = () => {
             <Box color={shape.color} position={shape.position} onMove={handleMove}>
                 Drag me!
             </Box>
-        </>
+        </div>
     );
 }
 
