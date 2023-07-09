@@ -1,5 +1,6 @@
 import {places} from "../data.js";
 import Place from './place/Place.jsx';
+import styles from '../../Challenges.module.css'
 
 export default function List() {
     const listItems = places.map(place =>
@@ -7,5 +8,5 @@ export default function List() {
             <Place place={place} />
         </li>
     );
-    return <ul>{listItems}</ul>;
+    return <ul className={styles.list} >{listItems}</ul>;
 }
