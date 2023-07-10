@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Background from "./background/Background.jsx";
 import Box from "./box/Box.jsx";
+import styles from '../Challenges.module.css'
 
 const initialPosition = {
     x: 0,
@@ -32,6 +33,7 @@ const UpdatingObjects = () => {
 
     return (
         <div>
+            <div className={styles.section_name}>Updating objects</div>
             <select value={shape.color} onChange={handleColorChange}>
                 <option value="orange">orange</option>
                 <option value="lightpink">lightpink</option>
