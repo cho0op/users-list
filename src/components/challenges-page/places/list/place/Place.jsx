@@ -1,4 +1,4 @@
-import PlaceImage from "./place-image/PlaceImage";
+import PlaceImage from './place-image/PlaceImage';
 
 export default function Place({ place }) {
     return (

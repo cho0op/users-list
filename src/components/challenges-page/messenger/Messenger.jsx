@@ -1,9 +1,12 @@
 import { useReducer } from 'react';
 import Chat from './chat/Chat.jsx';
 import ContactList from './contact-list/ContactList.jsx';
-import { initialState, messengerReducer } from './messenger-reducer/messengerReducer.js';
+import {
+    initialState,
+    messengerReducer,
+} from './messenger-reducer/messengerReducer.js';
 import contacts from './contacts.js';
-import styles from '../Challenges.module.css'
+import styles from '../Challenges.module.css';
 
 const Messenger = () => {
     const [state, dispatch] = useReducer(messengerReducer, initialState);
@@ -25,6 +28,6 @@ const Messenger = () => {
             />
         </div>
     );
-}
+};
 
-export default Messenger
+export default Messenger;

@@ -1,6 +1,6 @@
-import ShoppingCart from "./shopping-cart/ShoppingCart"
-import ToDoList from "./todo-list/ToDoList"
-import styles from './UpdatingArrays.module.css'
+import ShoppingCart from './shopping-cart/ShoppingCart';
+import ToDoList from './todo-list/ToDoList';
+import styles from './UpdatingArrays.module.css';
 
 const UpdatingArrays = () => {
     return (
@@ -9,7 +9,7 @@ const UpdatingArrays = () => {
             <ShoppingCart />
             <ToDoList />
         </div>
-    )
-}
+    );
+};
 
-export default UpdatingArrays
+export default UpdatingArrays;

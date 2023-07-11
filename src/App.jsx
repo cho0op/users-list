@@ -7,19 +7,19 @@ import TicTacToe from './components/tic-tac-toe-page/TicTacToe';
 import Challenges from './components/challenges-page/Challenges';
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Header></Header>
-      <main>
-        <Routes>
-          <Route path='/' element={<Contacts />} />
-          <Route path='/aboutus' element={<AboutUs />} />
-          <Route path='/tictactoe' element={<TicTacToe />} />
-          <Route path='/challenges' element={<Challenges />} />
-        </Routes>
-      </main>
-    </BrowserRouter>
-  );
-}
+    return (
+        <BrowserRouter>
+            <Header></Header>
+            <main>
+                <Routes>
+                    <Route path="/" element={<Contacts />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
+                    <Route path="/tictactoe" element={<TicTacToe />} />
+                    <Route path="/challenges" element={<Challenges />} />
+                </Routes>
+            </main>
+        </BrowserRouter>
+    );
+};
 
 export default App;

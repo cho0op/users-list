@@ -25,14 +25,14 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-.contact_item__buttons>button {
+.contact_item__buttons > button {
     background-color: #c5c5ff;
     border-color: transparent;
     border-radius: 1rem;
     height: 3rem;
 }
 
-.contact_item__buttons>button:hover {
+.contact_item__buttons > button:hover {
     background-color: #a3a3ff;
 }
 
@@ -40,9 +40,9 @@
     height: 1.5rem;
 }
 
-.submit{
+.submit {
     font-family: 'Montserrat';
-    color:#6868d4;
+    color: #6868d4;
     font-size: 1rem;
     margin-left: 1rem;
     background-color: #eaeafe;
@@ -50,12 +50,12 @@
     border-radius: 0.5rem;
 }
 
-.submit:hover{
+.submit:hover {
     background-color: #d6d6ff;
     transition: all 0.3s;
 }
 
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
     .rect {
         grid-template-columns: 1fr 20%;
     }
@@ -68,7 +68,7 @@
         font-size: 0.8rem;
     }
 
-    .contact_item__buttons>button {
+    .contact_item__buttons > button {
         border-radius: 0.6rem;
         height: 2rem;
     }
