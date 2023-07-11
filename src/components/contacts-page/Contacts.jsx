@@ -2,6 +2,7 @@ import styles from './Contacts.module.css';
 import ContactsItem from './contact-item/ContactItem';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import CustomInput from './custom-input/CustomInput';
 
 const Contacts = () => {
     useEffect(() => {
@@ -41,17 +42,19 @@ const Contacts = () => {
         <div className={styles.wrapper}>
             <div className={styles.content}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        {...register('name', { required: true })}
+                    <CustomInput
+                        type="text"
+                        name="name"
                         placeholder="Your name"
+                        register={register}
+                        options={{ required: true }}
                     />
-                    <input
+                    <CustomInput
                         type="number"
-                        {...register('phone', {
-                            required: true,
-                            valueAsNumber: true,
-                        })}
+                        name="phone"
                         placeholder="Your phone"
+                        register={register}
+                        options={{ required: true, valueAsNumber: true }}
                     />
                     <input type="submit" className={styles.submit} />
                 </form>

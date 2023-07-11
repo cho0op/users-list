@@ -1,0 +1,16 @@
+.input {
+    font-family: 'Montserrat';
+    color: #6868d4;
+    margin-right: 1rem;
+    background-color: #eaeafe;
+    border-color: transparent;
+}
+.input:focus {
+    border-color: #6868d4;
+    border-width: 0.02rem;
+    outline: none;
+}
+
+input::placeholder {
+    color: #fff;
+}
