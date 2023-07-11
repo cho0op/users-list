@@ -29,10 +29,10 @@
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 5%;
     list-style-type: none;
-    margin-left: 0; 
+    margin-left: 0;
     padding-left: 0;
 }
-.list > li{
+.list > li {
     margin-bottom: 1rem;
     display: grid;
     justify-items: center;
@@ -48,8 +48,7 @@
     grid-template-rows: repeat(4, 1fr);
 }
 
-.places{
+.places {
     display: grid;
     justify-items: center;
-
 }

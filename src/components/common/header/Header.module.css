@@ -8,7 +8,7 @@
     background: #eaeafe;
 }
 
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
     .rect {
         padding: 2.5% 15%;
     }
