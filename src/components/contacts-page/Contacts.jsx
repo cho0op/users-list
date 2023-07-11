@@ -1,16 +1,29 @@
 import styles from './Contacts.module.css';
-import data from './data';
 import ContactsItem from './contact-item/ContactItem';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 const Contacts = () => {
-    const [contacts, setContacts] = useState(data);
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/users/')
+            .then((response) => response.json())
+            .then((data) => {
+                setContacts(data);
+                setServerData(data);
+            })
+            .catch((error) => {
+                console.error('Error: ', error);
+            });
+    }, []);
+
+    const [contacts, setContacts] = useState([]);
     const [selectedId, setSelectedId] = useState(0);
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
+    const [serverData, setServerData] = useState([]);
 
-    let nextId = contacts.length + 1; // uh doesnt work correctly
+    const contactsLength = contacts.length + 1;
+    let nextId = contactsLength + 1;
 
     function onSubmit(value) {
         let stateCopy = [
@@ -55,6 +68,7 @@ const Contacts = () => {
                         setContacts={setContacts}
                         isSelected={isSelected}
                         setIsSelected={setIsSelected}
+                        serverData={serverData}
                     />
                 ))}
             </div>
