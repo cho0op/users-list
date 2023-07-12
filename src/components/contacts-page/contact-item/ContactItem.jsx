@@ -1,51 +1,15 @@
 import styles from '../Contacts.module.css';
-import { useNavigate } from 'react-router-dom';
 
 const ContactsItem = ({
     id,
     name,
     phone,
-    setSelectedId,
     selectedId,
-    contacts,
-    setContacts,
     isSelected,
-    setIsSelected,
-    serverData,
+    onSelectClick,
+    onDeleteClick,
+    onContactClick
 }) => {
-    const navigate = useNavigate();
-
-    function handleOnSelectClick(id) {
-        if (id !== selectedId) {
-            setSelectedId(id);
-            setIsSelected(true);
-        } else {
-            setIsSelected(!isSelected);
-        }
-    }
-
-    function handleOnDeleteClick(id) {
-        let stateCopy = contacts.filter((item) => item.id !== id);
-        setContacts(stateCopy);
-    }
-
-    function handleOnContactClick(id) {
-        let realId = id - 1;
-        if (
-            serverData[realId] === undefined ||
-            contacts[realId] === undefined
-        ) {
-            return;
-        }
-
-        const contactsKeys = Object.keys(contacts[realId]);
-        const serverDataKeys = Object.keys(serverData[realId]);
-
-        // у вручную добавленных атрибутов меньше
-        if (contactsKeys.length === serverDataKeys.length) {
-            navigate(`/contacts/${id}`);
-        }
-    }
 
     const selectedStyle = {
         background: '#d6d6ff',
@@ -62,7 +26,7 @@ const ContactsItem = ({
                     ? selectedStyle
                     : unSelectedStyle
             }
-            onClick={() => handleOnContactClick(id)}
+            onClick={() => onContactClick(id)}
         >
             <div className={styles.contact_item__content}>
                 <div className={styles.name}>{name}</div>
@@ -72,7 +36,7 @@ const ContactsItem = ({
                 <button
                     onClick={(e) => {
                         e.stopPropagation();
-                        handleOnSelectClick(id);
+                        onSelectClick(id);
                     }}
                 >
                     <img
@@ -84,7 +48,7 @@ const ContactsItem = ({
                 <button
                     onClick={(e) => {
                         e.stopPropagation();
-                        handleOnDeleteClick(id);
+                        onDeleteClick(id);
                     }}
                 >
                     <img

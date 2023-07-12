@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from '../ui/custom-input/CustomInput';
 import { endpoint } from './endpoint';
+import { useNavigate } from 'react-router-dom';
 // import useFetch from './useFetch/useFetch';
-
 
 const Contacts = () => {
     useEffect(() => {
@@ -24,6 +24,7 @@ const Contacts = () => {
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const [serverData, setServerData] = useState([]);
+    const navigate = useNavigate();
     function setFunction(data) {
         setContacts(data);
         setServerData(data);
@@ -59,6 +60,16 @@ const Contacts = () => {
         setContacts(stateCopy);
     }
 
+    function onContactClick(id) {
+        try {
+            if (!contacts[id - 1].isManuallyAdded) {
+                navigate(`/contacts/${id}`);
+            }
+        } catch (e) {
+            window.alert('Нет информации о контакте');
+        }
+    }
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
@@ -87,14 +98,10 @@ const Contacts = () => {
                         name={item.name}
                         phone={item.phone}
                         selectedId={selectedId}
-                        setSelectedId={setSelectedId}
-                        contacts={contacts}
-                        setContacts={setContacts}
                         isSelected={isSelected}
-                        setIsSelected={setIsSelected}
-                        serverData={serverData}
                         onSelectClick={onSelectClick}
                         onDeleteClick={onDeleteClick}
+                        onContactClick={onContactClick}
                     />
                 ))}
             </div>
