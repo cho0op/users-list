@@ -1,16 +1,30 @@
 import styles from './Contacts.module.css';
-import data from './data';
 import ContactsItem from './contact-item/ContactItem';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import CustomInput from '../ui/custom-input/CustomInput';
+import { USERS } from '../../endpoints';
+import { useNavigate } from 'react-router-dom';
+import useFetch from './useFetch/useFetch';
 
 const Contacts = () => {
-    const [contacts, setContacts] = useState(data);
     const [selectedId, setSelectedId] = useState(0);
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
+    const navigate = useNavigate();
+    const { data: contacts, isPending, error, setData: setContacts} = useFetch(USERS.USERS());
+    if (isPending) {
+        return <div>loading...</div>;
+    }
+    if (error) {
+        return <div>error: {error}</div>;
+    }
+    if (!contacts) {
+        return null;
+    }
 
-    let nextId = contacts.length + 1; // uh doesnt work correctly
+    const contactsLength = contacts.length + 1;
+    let nextId = contactsLength;
 
     function onSubmit(value) {
         let stateCopy = [
@@ -19,26 +33,51 @@ const Contacts = () => {
                 id: nextId++,
                 name: value.name,
                 phone: value.phone,
+                isManuallyAdded: true,
             },
         ];
         setContacts(stateCopy);
+    }
+
+    function onSelectClick(id) {
+        if (id !== selectedId) {
+            setSelectedId(id);
+            setIsSelected(true);
+        } else {
+            setIsSelected(!isSelected);
+        }
+    }
+
+    function onDeleteClick(id) {
+        let stateCopy = contacts.filter((item) => item.id !== id);
+        setContacts(stateCopy);
+    }
+
+    function onContactClick(id) {
+        if (!contacts[id - 1].isManuallyAdded) {
+            navigate(`/contacts/${id}`);
+        } else {
+            window.alert('Нет информации о контакте');
+        }
     }
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        {...register('name', { required: true })}
+                    <CustomInput
+                        type="text"
+                        name="name"
                         placeholder="Your name"
+                        register={register}
+                        options={{ required: true }}
                     />
-                    <input
+                    <CustomInput
                         type="number"
-                        {...register('phone', {
-                            required: true,
-                            valueAsNumber: true,
-                        })}
+                        name="phone"
                         placeholder="Your phone"
+                        register={register}
+                        options={{ required: true, valueAsNumber: true }}
                     />
                     <input type="submit" className={styles.submit} />
                 </form>
@@ -50,11 +89,10 @@ const Contacts = () => {
                         name={item.name}
                         phone={item.phone}
                         selectedId={selectedId}
-                        setSelectedId={setSelectedId}
-                        contacts={contacts}
-                        setContacts={setContacts}
                         isSelected={isSelected}
-                        setIsSelected={setIsSelected}
+                        onSelectClick={onSelectClick}
+                        onDeleteClick={onDeleteClick}
+                        onContactClick={onContactClick}
                     />
                 ))}
             </div>

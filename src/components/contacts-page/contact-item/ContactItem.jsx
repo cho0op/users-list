@@ -4,26 +4,12 @@ const ContactsItem = ({
     id,
     name,
     phone,
-    setSelectedId,
     selectedId,
-    contacts,
-    setContacts,
     isSelected,
-    setIsSelected,
+    onSelectClick,
+    onDeleteClick,
+    onContactClick
 }) => {
-    function handleOnSelectClick(id) {
-        if (id !== selectedId) {
-            setSelectedId(id);
-            setIsSelected(true);
-        } else {
-            setIsSelected(!isSelected);
-        }
-    }
-
-    function handleOnDeleteClick(id) {
-        let stateCopy = contacts.filter((item) => item.id !== id);
-        setContacts(stateCopy);
-    }
 
     const selectedStyle = {
         background: '#d6d6ff',
@@ -40,20 +26,31 @@ const ContactsItem = ({
                     ? selectedStyle
                     : unSelectedStyle
             }
+            onClick={() => onContactClick(id)}
         >
             <div className={styles.contact_item__content}>
                 <div className={styles.name}>{name}</div>
                 <div className={styles.phone}>{phone}</div>
             </div>
             <div className={styles.contact_item__buttons}>
-                <button onClick={() => handleOnSelectClick(id)}>
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onSelectClick(id);
+                    }}
+                >
                     <img
                         className={styles.button_img}
                         src={require('../img/done.png')}
                         alt=""
                     />
                 </button>
-                <button onClick={() => handleOnDeleteClick(id)}>
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onDeleteClick(id);
+                    }}
+                >
                     <img
                         className={styles.button_img}
                         src={require('../img/delete.png')}
