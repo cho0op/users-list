@@ -3,7 +3,7 @@ import ContactsItem from './contact-item/ContactItem';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from '../ui/custom-input/CustomInput';
-import { endpoint } from './endpoint';
+import { USERS } from '../../endpoints';
 import { useNavigate } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
 
@@ -12,8 +12,7 @@ const Contacts = () => {
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
-    const { data: contacts, isPending, error, setData: setContacts} = useFetch(endpoint);
-
+    const { data: contacts, isPending, error, setData: setContacts} = useFetch(USERS.USERS());
     if (isPending) {
         return <div>loading...</div>;
     }
@@ -23,12 +22,6 @@ const Contacts = () => {
     if (!contacts) {
         return null;
     }
-    // if (data) {
-    //     setServerData(
-    //         data.map((item) => ({ ...item, isManuallyAdded: false }))
-    //     );
-    //     setContacts(data.map((item) => ({ ...item, isManuallyAdded: false })));
-    // }
 
     const contactsLength = contacts.length + 1;
     let nextId = contactsLength;
