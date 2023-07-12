@@ -8,13 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
 
 const Contacts = () => {
-    const [contacts, setContacts] = useState([]);
     const [selectedId, setSelectedId] = useState(0);
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
-    const [serverData, setServerData] = useState([]);
     const navigate = useNavigate();
-    const { data, isPending, error } = useFetch(endpoint);
+    const { data: contacts, isPending, error, setData: setContacts} = useFetch(endpoint);
 
     if (isPending) {
         return <div>loading...</div>;
@@ -22,12 +20,15 @@ const Contacts = () => {
     if (error) {
         return <div>error: {error}</div>;
     }
-    if (data) {
-        setServerData(
-            data.map((item) => ({ ...item, isManuallyAdded: false }))
-        );
-        setContacts(data.map((item) => ({ ...item, isManuallyAdded: false })));
+    if (!contacts) {
+        return null;
     }
+    // if (data) {
+    //     setServerData(
+    //         data.map((item) => ({ ...item, isManuallyAdded: false }))
+    //     );
+    //     setContacts(data.map((item) => ({ ...item, isManuallyAdded: false })));
+    // }
 
     const contactsLength = contacts.length + 1;
     let nextId = contactsLength;

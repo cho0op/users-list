@@ -1,19 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useFetch({ endpoint }) {
-    // const [error, setError] = useState(null);
-    // useEffect(() => {
-    //     fetch(endpoint)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             console.log(data);
-    //             setInfo(data);
-    //         })
-    //         .catch((error) => {
-    //             setError(error);
-    //         });
-    // }, [endpoint]);
-    // return { info, error };
+function useFetch(endpoint) {
     const [data, setData] = useState(null);
     const [isPending, setIsPending] = useState(false);
     const [error, setError] = useState(null);
@@ -34,7 +21,7 @@ function useFetch({ endpoint }) {
         };
         fetchData();
     }, [endpoint]);
-    return { data, isPending, error };
+    return { data, isPending, error, setData };
 }
 
 export default useFetch;
