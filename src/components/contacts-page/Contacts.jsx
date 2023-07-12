@@ -5,14 +5,19 @@ import { useForm } from 'react-hook-form';
 import CustomInput from '../ui/custom-input/CustomInput';
 import { endpoint } from './endpoint';
 import { useNavigate } from 'react-router-dom';
-// import useFetch from './useFetch/useFetch';
+import useFetch from './useFetch/useFetch';
 
 const Contacts = () => {
     useEffect(() => {
         fetch(endpoint)
             .then((response) => response.json())
             .then((data) => {
-                setFunction(data);
+                setServerData(
+                    data.map((item) => ({ ...item, isManuallyAdded: false }))
+                );
+                setContacts(
+                    data.map((item) => ({ ...item, isManuallyAdded: false }))
+                );
             })
             .catch((error) => {
                 console.error('Error: ', error);
@@ -25,13 +30,15 @@ const Contacts = () => {
     const { register, handleSubmit } = useForm();
     const [serverData, setServerData] = useState([]);
     const navigate = useNavigate();
-    function setFunction(data) {
-        setContacts(data);
-        setServerData(data);
-    }
+
+    // function setFunction() {
+
+    //     setContacts(data);
+    //     setServerData(data);
+    // }
 
     const contactsLength = contacts.length + 1;
-    let nextId = contactsLength + 1;
+    let nextId = contactsLength;
 
     function onSubmit(value) {
         let stateCopy = [
@@ -44,9 +51,12 @@ const Contacts = () => {
             },
         ];
         setContacts(stateCopy);
+        // setIsManuallyAdded(true);
     }
 
     function onSelectClick(id) {
+        console.log(contacts)
+                console.log(serverData)
         if (id !== selectedId) {
             setSelectedId(id);
             setIsSelected(true);
@@ -61,11 +71,9 @@ const Contacts = () => {
     }
 
     function onContactClick(id) {
-        try {
-            if (!contacts[id - 1].isManuallyAdded) {
-                navigate(`/contacts/${id}`);
-            }
-        } catch (e) {
+        if (!contacts[id - 1].isManuallyAdded) {
+            navigate(`/contacts/${id}`);
+        } else {
             window.alert('Нет информации о контакте');
         }
     }
