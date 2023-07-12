@@ -2,15 +2,17 @@ import styles from './Contacts.module.css';
 import ContactsItem from './contact-item/ContactItem';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import CustomInput from './custom-input/CustomInput';
+import CustomInput from '../ui/custom-input/CustomInput';
+import { endpoint } from './endpoint';
+// import useFetch from './useFetch/useFetch';
+
 
 const Contacts = () => {
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users/')
+        fetch(endpoint)
             .then((response) => response.json())
             .then((data) => {
-                setContacts(data);
-                setServerData(data);
+                setFunction(data);
             })
             .catch((error) => {
                 console.error('Error: ', error);
@@ -22,6 +24,10 @@ const Contacts = () => {
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const [serverData, setServerData] = useState([]);
+    function setFunction(data) {
+        setContacts(data);
+        setServerData(data);
+    }
 
     const contactsLength = contacts.length + 1;
     let nextId = contactsLength + 1;
@@ -33,8 +39,23 @@ const Contacts = () => {
                 id: nextId++,
                 name: value.name,
                 phone: value.phone,
+                isManuallyAdded: true,
             },
         ];
+        setContacts(stateCopy);
+    }
+
+    function onSelectClick(id) {
+        if (id !== selectedId) {
+            setSelectedId(id);
+            setIsSelected(true);
+        } else {
+            setIsSelected(!isSelected);
+        }
+    }
+
+    function onDeleteClick(id) {
+        let stateCopy = contacts.filter((item) => item.id !== id);
         setContacts(stateCopy);
     }
 
@@ -72,6 +93,8 @@ const Contacts = () => {
                         isSelected={isSelected}
                         setIsSelected={setIsSelected}
                         serverData={serverData}
+                        onSelectClick={onSelectClick}
+                        onDeleteClick={onDeleteClick}
                     />
                 ))}
             </div>

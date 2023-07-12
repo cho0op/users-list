@@ -1,10 +1,11 @@
 import styles from './ContactDetailed.module.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { endpoint } from '../endpoint';
 
 const ContactDetailed = () => {
     useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+        fetch(`${endpoint}/${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setInfo(data);
