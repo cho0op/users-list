@@ -1,26 +1,22 @@
 import styles from './ContactDetailed.module.css';
-import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { endpoint } from '../endpoint';
+import { USERS } from '../../../endpoints';
+import useFetch from '../useFetch/useFetch';
 
 const ContactDetailed = () => {
-    useEffect(() => {
-        fetch(`${endpoint}/${id}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setInfo(data);
-            })
-            .catch((error) => {
-                console.error('Error: ', error);
-            });
-    }, []);
-
     const { id } = useParams();
-    const [info, setInfo] = useState({
-        address: { city: '' },
-        company: { name: '' },
-    });
     let navigate = useNavigate();
+
+    const { data: info, isPending, error, setData: setInfo} = useFetch(USERS.USER_BY_ID(id));
+    if (isPending) {
+        return <div>loading...</div>;
+    }
+    if (error) {
+        return <div>error: {error}</div>;
+    }
+    if (!info) {
+        return null;
+    }
 
     return (
         <div className={styles.content}>
