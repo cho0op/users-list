@@ -13,7 +13,7 @@ const ContactsItem = ({
     setIsSelected,
     serverData,
 }) => {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     function handleOnSelectClick(id) {
         if (id !== selectedId) {
