@@ -1,6 +1,6 @@
 import styles from './Contacts.module.css';
 import ContactsItem from './contact-item/ContactItem';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from '../ui/custom-input/CustomInput';
 import { endpoint } from './endpoint';
@@ -8,34 +8,26 @@ import { useNavigate } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
 
 const Contacts = () => {
-    useEffect(() => {
-        fetch(endpoint)
-            .then((response) => response.json())
-            .then((data) => {
-                setServerData(
-                    data.map((item) => ({ ...item, isManuallyAdded: false }))
-                );
-                setContacts(
-                    data.map((item) => ({ ...item, isManuallyAdded: false }))
-                );
-            })
-            .catch((error) => {
-                console.error('Error: ', error);
-            });
-    }, []);
-
     const [contacts, setContacts] = useState([]);
     const [selectedId, setSelectedId] = useState(0);
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const [serverData, setServerData] = useState([]);
     const navigate = useNavigate();
+    const { data, isPending, error } = useFetch(endpoint);
 
-    // function setFunction() {
-
-    //     setContacts(data);
-    //     setServerData(data);
-    // }
+    if (isPending) {
+        return <div>loading...</div>;
+    }
+    if (error) {
+        return <div>error: {error}</div>;
+    }
+    if (data) {
+        setServerData(
+            data.map((item) => ({ ...item, isManuallyAdded: false }))
+        );
+        setContacts(data.map((item) => ({ ...item, isManuallyAdded: false })));
+    }
 
     const contactsLength = contacts.length + 1;
     let nextId = contactsLength;
@@ -51,12 +43,9 @@ const Contacts = () => {
             },
         ];
         setContacts(stateCopy);
-        // setIsManuallyAdded(true);
     }
 
     function onSelectClick(id) {
-        console.log(contacts)
-                console.log(serverData)
         if (id !== selectedId) {
             setSelectedId(id);
             setIsSelected(true);
