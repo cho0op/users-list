@@ -12,7 +12,12 @@ const Contacts = () => {
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
-    const { data: contacts, isPending, error, setData: setContacts} = useFetch(USERS.USERS());
+    const {
+        data: contacts,
+        isPending,
+        error,
+        setData: setContacts,
+    } = useFetch(USERS.USERS());
     if (isPending) {
         return <div>loading...</div>;
     }
@@ -23,14 +28,14 @@ const Contacts = () => {
         return null;
     }
 
-    const contactsLength = contacts.length + 1;
-    let nextId = contactsLength;
+    const ids = contacts.map((item) => item.id);
+    const maxId = Math.max(...ids);
 
     function onSubmit(value) {
         let stateCopy = [
             ...contacts,
             {
-                id: nextId++,
+                id: maxId + 1,
                 name: value.name,
                 phone: value.phone,
                 isManuallyAdded: true,
@@ -54,7 +59,8 @@ const Contacts = () => {
     }
 
     function onContactClick(id) {
-        if (!contacts[id - 1].isManuallyAdded) {
+        let contact = contacts.find((item) => item.id === id);
+        if (!contact.isManuallyAdded) {
             navigate(`/contacts/${id}`);
         } else {
             window.alert('Нет информации о контакте');
