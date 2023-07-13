@@ -1,4 +1,4 @@
-import styles from './TicTacToe.module.css'
+import styles from './TicTacToe.module.css';
 import { useState } from 'react';
 import Board from './Board/Board';
 
@@ -34,7 +34,7 @@ const TicTacToe = () => {
                 </button>
             </li>
         );
-    })
+    });
 
     return (
         <div className={styles.content}>
@@ -47,7 +47,7 @@ const TicTacToe = () => {
                 <ol>{moves}</ol>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default TicTacToe
+export default TicTacToe;

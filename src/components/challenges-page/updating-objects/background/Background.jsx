@@ -2,17 +2,17 @@ const Background = ({ position }) => {
     return (
         <div
             style={{
-                position: "absolute",
+                position: 'absolute',
                 transform: `translate(
           ${position.x}px,
           ${position.y}px
         )`,
-                width: 250,
-                height: 250,
-                backgroundColor: "rgba(200, 200, 0, 0.2)"
+                width: 150,
+                height: 150,
+                backgroundColor: 'rgba(200, 200, 0, 0.2)',
             }}
         />
     );
-}
+};
 
-export default Background
+export default Background;

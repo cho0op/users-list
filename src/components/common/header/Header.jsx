@@ -5,18 +5,25 @@ const Header = () => {
     return (
         <header>
             <div className={styles.wrapper}>
-                <div className={styles.content}>                    
+                <div className={styles.content}>
                     <div className={styles.rect}>
-                        <NavLink className={styles.link} to='/'>Contacts</NavLink>
-                        <NavLink className={styles.link} to='/aboutus'>About us</NavLink>
-                        <NavLink className={styles.link} to='/tictactoe'>Tic-Tac-Toe</NavLink>
-                        <NavLink className={styles.link} to='/challenges'>Challenges</NavLink>
-                        <NavLink className={styles.link} to='/newchallenges'>Challenges v2</NavLink>
+                        <NavLink className={styles.link} to="/">
+                            Contacts
+                        </NavLink>
+                        <NavLink className={styles.link} to="/aboutus">
+                            About us
+                        </NavLink>
+                        <NavLink className={styles.link} to="/tictactoe">
+                            Tic-Tac-Toe
+                        </NavLink>
+                        <NavLink className={styles.link} to="/challenges">
+                            Challenges
+                        </NavLink>
                     </div>
                 </div>
             </div>
         </header>
-    )
-}
+    );
+};
 
 export default Header;

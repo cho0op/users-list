@@ -5,23 +5,23 @@ import AboutUs from './components/about-us-page/AboutUs';
 import Header from './components/common/header/Header';
 import TicTacToe from './components/tic-tac-toe-page/TicTacToe';
 import Challenges from './components/challenges-page/Challenges';
-import NewChallenges from './components/new-challenges-page/NewChallenges';
+import ContactDetailed from './components/contacts-page/contact-detailed/ContactDetailed';
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Header></Header>
-      <main>
-        <Routes>
-          <Route path='/' element={<Contacts />} />
-          <Route path='/aboutus' element={<AboutUs />} />
-          <Route path='/tictactoe' element={<TicTacToe />} />
-          <Route path='/challenges' element={<Challenges />} />
-          <Route path='/newchallenges' element={<NewChallenges />} />
-        </Routes>
-      </main>
-    </BrowserRouter>
-  );
-}
+    return (
+        <BrowserRouter>
+            <Header></Header>
+            <main>
+                <Routes>
+                    <Route path="/" element={<Contacts />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
+                    <Route path="/tictactoe" element={<TicTacToe />} />
+                    <Route path="/challenges" element={<Challenges />} />
+                    <Route path="/contacts/:id" element={<ContactDetailed />} />
+                </Routes>
+            </main>
+        </BrowserRouter>
+    );
+};
 
 export default App;

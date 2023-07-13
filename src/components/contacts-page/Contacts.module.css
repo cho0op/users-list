@@ -1,17 +1,80 @@
 .rect {
+    margin-top: 1%;
     margin-bottom: 1%;
-    padding: 2%;
-    background: #eaeafe;
-}
-
-.content{
     padding: 3%;
+    display: grid;
+    grid-template-columns: 1fr 10%;
+    transition: all 0.1s;
 }
 
-.name{
+.content {
+    padding: 3% 15%;
+}
+
+.name {
     font-size: 1.5rem;
 }
 
-.phone{
+.phone {
     padding-top: 1%;
+}
+
+.contact_item__buttons {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.contact_item__buttons > button {
+    background-color: #c5c5ff;
+    border-color: transparent;
+    border-radius: 1rem;
+    height: 3rem;
+}
+
+.contact_item__buttons > button:hover {
+    background-color: #a3a3ff;
+}
+
+.button_img {
+    height: 1.5rem;
+}
+
+.submit {
+    font-family: 'Montserrat';
+    color: #6868d4;
+    font-size: 0.9rem;
+    margin-left: 1rem;
+    background-color: #c5c5ff;
+    border-color: transparent;
+    border-radius: 0.3rem;
+}
+
+.submit:hover {
+    background-color: #a3a3ff;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+@media (max-width: 1000px) {
+    .rect {
+        grid-template-columns: 1fr 20%;
+    }
+
+    .name {
+        font-size: 1rem;
+    }
+
+    .phone {
+        font-size: 0.8rem;
+    }
+
+    .contact_item__buttons > button {
+        border-radius: 0.6rem;
+        height: 2rem;
+    }
+
+    .button_img {
+        height: 1rem;
+    }
 }
