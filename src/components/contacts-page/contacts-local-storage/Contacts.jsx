@@ -2,8 +2,8 @@ import styles from './Contacts.module.css';
 import ContactsItem from './contact-item/ContactItem';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import CustomInput from '../ui/custom-input/CustomInput';
-import { USERS } from '../../endpoints';
+import CustomInput from '../../ui/custom-input/CustomInput';
+import { USERS } from '../../../endpoints';
 import { useNavigate } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
 
@@ -29,13 +29,14 @@ const Contacts = () => {
     }
 
     const ids = contacts.map((item) => item.id);
-    const maxId = Math.max(...ids);
+    let maxId = Math.max(...ids);
 
     function onSubmit(value) {
+        maxId++
         let stateCopy = [
             ...contacts,
             {
-                id: maxId + 1,
+                id: maxId,
                 name: value.name,
                 phone: value.phone,
                 isManuallyAdded: true,
