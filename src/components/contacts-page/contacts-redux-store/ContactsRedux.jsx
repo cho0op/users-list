@@ -6,6 +6,7 @@ import CustomInput from '../../ui/custom-input/CustomInput';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { submit, remove, fetchContacts } from './contactsSlice';
+import { nanoid } from 'nanoid';
 
 const ContactsRedux = () => {
     const [selectedId, setSelectedId] = useState(0);
@@ -34,14 +35,10 @@ const ContactsRedux = () => {
         return null;
     }
 
-    const ids = contacts.map((item) => item.id);
-    let maxId = Math.max(...ids);
-
     function onSubmit(value) {
-        maxId++;
         dispatch(
             submit({
-                id: maxId,
+                id: nanoid(),
                 name: value.name,
                 phone: value.phone,
                 isManuallyAdded: true,

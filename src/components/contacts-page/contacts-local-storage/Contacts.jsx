@@ -6,6 +6,7 @@ import CustomInput from '../../ui/custom-input/CustomInput';
 import { USERS } from '../../../endpoints';
 import { useNavigate, NavLink } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
+import { nanoid } from 'nanoid';
 
 const Contacts = () => {
     const [selectedId, setSelectedId] = useState(0);
@@ -28,15 +29,11 @@ const Contacts = () => {
         return null;
     }
 
-    const ids = contacts.map((item) => item.id);
-    let maxId = Math.max(...ids);
-
     function onSubmit(value) {
-        maxId++;
         let stateCopy = [
             ...contacts,
             {
-                id: maxId,
+                id: nanoid(),
                 name: value.name,
                 phone: value.phone,
                 isManuallyAdded: true,
