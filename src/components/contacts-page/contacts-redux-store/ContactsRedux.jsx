@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import CustomInput from '../../ui/custom-input/CustomInput';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { submit, fetchContacts } from './contactsSlice';
+import { submit, remove, fetchContacts } from './contactsSlice';
 
 const ContactsRedux = () => {
     const [selectedId, setSelectedId] = useState(0);
@@ -62,8 +62,7 @@ const ContactsRedux = () => {
     }
 
     function onDeleteClick(id) {
-        // let stateCopy = contacts.filter((item) => item.id !== id);
-        // setContacts(stateCopy);
+        dispatch(remove(id))
     }
 
     function onContactClick(id) {

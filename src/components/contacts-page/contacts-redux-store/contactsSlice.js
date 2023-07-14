@@ -11,7 +11,7 @@ export const fetchContacts = createAsyncThunk(
     'contacts/fetchContacts',
     async () => {
         const response = await fetch(USERS.USERS());
-        return response.data;
+        return response.json();
     }
 );
 
@@ -19,8 +19,13 @@ export const contactsSlice = createSlice({
     name: 'contacts',
     initialState,
     reducers: {
-        submit: (state, action) => {
-            state.push(action.payload);
+        submit(state, action) {
+            state.contacts.push(action.payload);
+        },
+        remove(state, action) {
+            state.contacts = state.contacts.filter(
+                (item) => item.id !== action.payload
+            );
         },
     },
     extraReducers: (builder) => {
@@ -38,5 +43,5 @@ export const contactsSlice = createSlice({
     },
 });
 
-export const { submit } = contactsSlice.actions;
+export const { submit, remove } = contactsSlice.actions;
 export default contactsSlice.reducer;
