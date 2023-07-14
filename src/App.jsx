@@ -7,6 +7,7 @@ import TicTacToe from './components/tic-tac-toe-page/TicTacToe';
 import Challenges from './components/challenges-page/Challenges';
 import ContactDetailed from './components/contacts-page/contacts-local-storage/contact-detailed/ContactDetailed';
 import ContactsRedux from './components/contacts-page/contacts-redux-store/ContactsRedux';
+import ContactDetailedRedux from './components/contacts-page/contacts-redux-store/contact-detailed/ContactDetailedRedux';
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                     <Route path="/tictactoe" element={<TicTacToe />} />
                     <Route path="/challenges" element={<Challenges />} />
                     <Route path="/contacts/:id" element={<ContactDetailed />} />
+                    <Route path="/contactsredux/:id" element={<ContactDetailedRedux />} />
                 </Routes>
             </main>
         </BrowserRouter>

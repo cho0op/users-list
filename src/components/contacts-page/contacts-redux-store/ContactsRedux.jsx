@@ -29,9 +29,6 @@ const ContactsRedux = () => {
     if (error) {
         return error;
     }
-    if (contacts) {
-        console.log(contacts);
-    }
     if (!contacts) {
         console.log('there`s no contacts');
         return null;
@@ -68,7 +65,7 @@ const ContactsRedux = () => {
     function onContactClick(id) {
         let contact = contacts.find((item) => item.id === id);
         if (!contact.isManuallyAdded) {
-            navigate(`/contacts/${id}`);
+            navigate(`/contactsredux/${id}`);
         } else {
             window.alert('Нет информации о контакте');
         }
