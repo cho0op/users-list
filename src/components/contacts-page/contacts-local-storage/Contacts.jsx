@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from '../../ui/custom-input/CustomInput';
 import { USERS } from '../../../endpoints';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
 
 const Contacts = () => {
@@ -32,7 +32,7 @@ const Contacts = () => {
     let maxId = Math.max(...ids);
 
     function onSubmit(value) {
-        maxId++
+        maxId++;
         let stateCopy = [
             ...contacts,
             {
@@ -71,6 +71,7 @@ const Contacts = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
+                <h3>Local storage version! <NavLink to='/redux'> --- Go to redux</NavLink></h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <CustomInput
                         type="text"
@@ -88,7 +89,6 @@ const Contacts = () => {
                     />
                     <input type="submit" className={styles.submit} />
                 </form>
-
                 {contacts.map((item) => (
                     <ContactsItem
                         key={item.id}

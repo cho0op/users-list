@@ -3,7 +3,7 @@ import ContactsItem from '../contacts-local-storage/contact-item/ContactItem';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from '../../ui/custom-input/CustomInput';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { submit, fetchContacts } from './contactsSlice';
 
@@ -78,6 +78,7 @@ const ContactsRedux = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
+                <h3>Redux version! <NavLink to='/'> --- Go to local storage</NavLink></h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <CustomInput
                         type="text"
