@@ -1,22 +1,19 @@
 import styles from './ContactDetailed.module.css';
-import { useParams, useNavigate } from 'react-router-dom';
-import { USERS } from '../../../../endpoints';
-import useFetch from '../useFetch/useFetch';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { fetchContactById } from './contactDetailedSlice';
+import { useEffect } from 'react';
 
-const ContactDetailed = () => {
+const ContactDetailedRedux = () => {
+    const dispatch = useDispatch();
     const { id } = useParams();
-    let navigate = useNavigate();
 
-    const { data: info, isPending, error, setData: setInfo} = useFetch(USERS.USER_BY_ID(id));
-    if (isPending) {
-        return <div>loading...</div>;
-    }
-    if (error) {
-        return <div>error: {error}</div>;
-    }
-    if (!info) {
-        return null;
-    }
+    useEffect(() => {
+        dispatch(fetchContactById(id));
+    }, [dispatch, id]);
+
+    let navigate = useNavigate();
+    const info = useSelector((state) => state.contact.contact);
 
     return (
         <div className={styles.content}>
@@ -34,7 +31,7 @@ const ContactDetailed = () => {
             <button
                 className={styles.goback_button}
                 onClick={() => {
-                    navigate('/');
+                    navigate('/redux');
                 }}
             >
                 Go back
@@ -43,4 +40,4 @@ const ContactDetailed = () => {
     );
 };
 
-export default ContactDetailed;
+export default ContactDetailedRedux;
