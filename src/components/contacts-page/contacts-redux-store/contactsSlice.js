@@ -5,7 +5,7 @@ const initialState = {
     contacts: [],
     isLoading: false,
     error: null,
-    isSelected: false,
+    selectedId: 0
 };
 
 export const fetchContacts = createAsyncThunk(
