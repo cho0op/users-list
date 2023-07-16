@@ -1,8 +1,7 @@
 import styles from '../contacts-local-storage/Contacts.module.css';
 import ContactsItem from '../contacts-local-storage/contact-item/ContactItem';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import CustomInput from '../../ui/custom-input/CustomInput';
+import ContactCreation from '../contact-creation/ContactCreation';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { submit, remove, select, fetchContacts } from './contactsSlice';
@@ -10,7 +9,6 @@ import { nanoid } from 'nanoid';
 import handleOnContactClick from '../utils/handleOnContactClick';
 
 const ContactsRedux = () => {
-    const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
     const url = '/contactsredux';
     const dispatch = useDispatch();
@@ -65,24 +63,7 @@ const ContactsRedux = () => {
                     Redux version!{' '}
                     <NavLink to="/"> --- Go to local storage</NavLink>
                 </h3>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <CustomInput
-                        type="text"
-                        name="name"
-                        placeholder="Your name"
-                        register={register}
-                        options={{ required: true }}
-                    />
-                    <CustomInput
-                        type="number"
-                        name="phone"
-                        placeholder="Your phone"
-                        register={register}
-                        options={{ required: true, valueAsNumber: true }}
-                    />
-                    <input type="submit" className={styles.submit} />
-                </form>
-
+                <ContactCreation onSubmit={onSubmit} />
                 {contacts.map((item) => (
                     <ContactsItem
                         key={item.id}

@@ -1,9 +1,8 @@
 import styles from './Contacts.module.css';
 import ContactsItem from './contact-item/ContactItem';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import CustomInput from '../../ui/custom-input/CustomInput';
 import { USERS } from '../../../endpoints';
+import ContactCreation from '../contact-creation/ContactCreation';
 import { useNavigate, NavLink } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
 import { nanoid } from 'nanoid';
@@ -11,7 +10,6 @@ import handleOnContactClick from '../utils/handleOnContactClick';
 
 const Contacts = () => {
     const [selectedId, setSelectedId] = useState(0);
-    const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
     const url = '/contacts';
 
@@ -69,23 +67,7 @@ const Contacts = () => {
                     Local storage version!{' '}
                     <NavLink to="/redux"> --- Go to redux</NavLink>
                 </h3>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <CustomInput
-                        type="text"
-                        name="name"
-                        placeholder="Your name"
-                        register={register}
-                        options={{ required: true }}
-                    />
-                    <CustomInput
-                        type="number"
-                        name="phone"
-                        placeholder="Your phone"
-                        register={register}
-                        options={{ required: true, valueAsNumber: true }}
-                    />
-                    <input type="submit" className={styles.submit} />
-                </form>
+                <ContactCreation onSubmit={onSubmit} />
                 {contacts.map((item) => (
                     <ContactsItem
                         key={item.id}
