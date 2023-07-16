@@ -10,8 +10,6 @@ import { nanoid } from 'nanoid';
 import handleOnContactClick from '../utils/handleOnContactClick';
 
 const ContactsRedux = () => {
-    // const [selectedId, setSelectedId] = useState(0);
-    // const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
     const url = '/contactsredux';
@@ -23,7 +21,6 @@ const ContactsRedux = () => {
 
     const contacts = useSelector((state) => state.contacts.contacts);
     const selectedId = useSelector((state) => state.contacts.selectedId);
-    const isSelected = useSelector((state) => state.contacts.isSelected);
     const isLoading = useSelector((state) => state.contacts.isLoading);
     const error = useSelector((state) => state.contacts.error);
 
@@ -93,7 +90,6 @@ const ContactsRedux = () => {
                         name={item.name}
                         phone={item.phone}
                         selectedId={selectedId}
-                        isSelected={isSelected}
                         onSelectClick={onSelectClick}
                         onDeleteClick={onDeleteClick}
                         onContactClick={onContactClick}

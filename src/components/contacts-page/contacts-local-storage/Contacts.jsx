@@ -11,7 +11,6 @@ import handleOnContactClick from '../utils/handleOnContactClick';
 
 const Contacts = () => {
     const [selectedId, setSelectedId] = useState(0);
-    const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
     const url = '/contacts';
@@ -47,11 +46,10 @@ const Contacts = () => {
     }
 
     function onSelectClick(id) {
-        if (id !== selectedId) {
-            setSelectedId(id);
-            setIsSelected(true);
+        if (id === selectedId) {
+            setSelectedId(0);
         } else {
-            setIsSelected(!isSelected);
+            setSelectedId(id);
         }
     }
 
@@ -95,7 +93,6 @@ const Contacts = () => {
                         name={item.name}
                         phone={item.phone}
                         selectedId={selectedId}
-                        isSelected={isSelected}
                         onSelectClick={onSelectClick}
                         onDeleteClick={onDeleteClick}
                         onContactClick={onContactClick}

@@ -5,7 +5,6 @@ const ContactsItem = ({
     name,
     phone,
     selectedId,
-    isSelected,
     onSelectClick,
     onDeleteClick,
     onContactClick
@@ -22,7 +21,7 @@ const ContactsItem = ({
         <div
             className={styles.rect}
             style={
-                id === selectedId && isSelected
+                id === selectedId 
                     ? selectedStyle
                     : unSelectedStyle
             }

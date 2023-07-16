@@ -5,7 +5,6 @@ const initialState = {
     contacts: [],
     isLoading: false,
     error: null,
-    selectedId: 0,
     isSelected: false,
 };
 
@@ -30,11 +29,10 @@ export const contactsSlice = createSlice({
             );
         },
         select(state, action) {
-            if (action.payload !== state.selectedId) {
-                state.selectedId = action.payload;
-                state.isSelected = true;
+            if (state.selectedId === action.payload) {
+                state.selectedId = 0;
             } else {
-                state.isSelected = !state.isSelected;
+                state.selectedId = action.payload;
             }
         },
     },
