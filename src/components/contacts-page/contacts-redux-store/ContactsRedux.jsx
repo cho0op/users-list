@@ -22,6 +22,8 @@ const ContactsRedux = () => {
     }, [dispatch]);
 
     const contacts = useSelector((state) => state.contacts.contacts);
+    const selectedId = useSelector((state) => state.contacts.selectedId);
+    const isSelected = useSelector((state) => state.contacts.isSelected);
     const isLoading = useSelector((state) => state.contacts.isLoading);
     const error = useSelector((state) => state.contacts.error);
 
@@ -48,12 +50,7 @@ const ContactsRedux = () => {
     }
 
     function onSelectClick(id) {
-        if (id !== selectedId) {
-            setSelectedId(id);
-            setIsSelected(true);
-        } else {
-            setIsSelected(!isSelected);
-        }
+        dispatch(select(id));
     }
 
     function onDeleteClick(id) {

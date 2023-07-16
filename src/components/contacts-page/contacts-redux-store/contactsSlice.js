@@ -5,6 +5,8 @@ const initialState = {
     contacts: [],
     isLoading: false,
     error: null,
+    selectedId: 0,
+    isSelected: false,
 };
 
 export const fetchContacts = createAsyncThunk(
@@ -27,6 +29,14 @@ export const contactsSlice = createSlice({
                 (item) => item.id !== action.payload
             );
         },
+        select(state, action) {
+            if (action.payload !== state.selectedId) {
+                state.selectedId = action.payload;
+                state.isSelected = true;
+            } else {
+                state.isSelected = !state.isSelected;
+            }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchContacts.pending, (state) => {
@@ -43,5 +53,5 @@ export const contactsSlice = createSlice({
     },
 });
 
-export const { submit, remove } = contactsSlice.actions;
+export const { submit, remove, select } = contactsSlice.actions;
 export default contactsSlice.reducer;
