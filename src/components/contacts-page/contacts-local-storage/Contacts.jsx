@@ -7,18 +7,22 @@ import { USERS } from '../../../endpoints';
 import { useNavigate, NavLink } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
 import { nanoid } from 'nanoid';
+import handleOnContactClick from '../utils/handleOnContactClick';
 
 const Contacts = () => {
     const [selectedId, setSelectedId] = useState(0);
     const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
+    const url = '/contacts';
+
     const {
         data: contacts,
         isPending,
         error,
         setData: setContacts,
     } = useFetch(USERS.USERS());
+
     if (isPending) {
         return <div>loading...</div>;
     }
@@ -57,18 +61,16 @@ const Contacts = () => {
     }
 
     function onContactClick(id) {
-        let contact = contacts.find((item) => item.id === id);
-        if (!contact.isManuallyAdded) {
-            navigate(`/contacts/${id}`);
-        } else {
-            window.alert('Нет информации о контакте');
-        }
+        handleOnContactClick(id, contacts, url, navigate);
     }
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
-                <h3>Local storage version! <NavLink to='/redux'> --- Go to redux</NavLink></h3>
+                <h3>
+                    Local storage version!{' '}
+                    <NavLink to="/redux"> --- Go to redux</NavLink>
+                </h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <CustomInput
                         type="text"

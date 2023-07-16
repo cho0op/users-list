@@ -1,19 +1,20 @@
 import styles from '../contacts-local-storage/Contacts.module.css';
 import ContactsItem from '../contacts-local-storage/contact-item/ContactItem';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from '../../ui/custom-input/CustomInput';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { submit, remove, fetchContacts } from './contactsSlice';
+import { submit, remove, select, fetchContacts } from './contactsSlice';
 import { nanoid } from 'nanoid';
+import handleOnContactClick from '../utils/handleOnContactClick';
 
 const ContactsRedux = () => {
-    const [selectedId, setSelectedId] = useState(0);
-    const [isSelected, setIsSelected] = useState(false);
+    // const [selectedId, setSelectedId] = useState(0);
+    // const [isSelected, setIsSelected] = useState(false);
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
-
+    const url = '/contactsredux';
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -56,22 +57,20 @@ const ContactsRedux = () => {
     }
 
     function onDeleteClick(id) {
-        dispatch(remove(id))
+        dispatch(remove(id));
     }
 
     function onContactClick(id) {
-        let contact = contacts.find((item) => item.id === id);
-        if (!contact.isManuallyAdded) {
-            navigate(`/contactsredux/${id}`);
-        } else {
-            window.alert('Нет информации о контакте');
-        }
+        handleOnContactClick(id, contacts, url, navigate);
     }
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
-                <h3>Redux version! <NavLink to='/'> --- Go to local storage</NavLink></h3>
+                <h3>
+                    Redux version!{' '}
+                    <NavLink to="/"> --- Go to local storage</NavLink>
+                </h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <CustomInput
                         type="text"
