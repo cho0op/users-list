@@ -1,6 +1,6 @@
 import styles from './ContactDetailed.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import { USERS } from '../../../endpoints';
+import { USERS } from '../../../../endpoints';
 import useFetch from '../useFetch/useFetch';
 
 const ContactDetailed = () => {
