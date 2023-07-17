@@ -1,19 +1,19 @@
 import styles from './ContactDetailed.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchContactById } from './contactDetailedSlice';
+import { fetchContactById, selectInfo } from './contactDetailedSlice';
 import { useEffect } from 'react';
 
 const ContactDetailedRedux = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
+    const info = useSelector(selectInfo)
 
     useEffect(() => {
         dispatch(fetchContactById(id));
     }, [dispatch, id]);
 
     let navigate = useNavigate();
-    const info = useSelector((state) => state.contact.contact);
 
     return (
         <div className={styles.content}>

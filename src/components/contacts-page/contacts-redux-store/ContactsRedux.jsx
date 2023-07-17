@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import ContactCreation from '../contact-creation/ContactCreation';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { submit, remove, select, fetchContacts } from './contactsSlice';
+import { submit, remove, select, fetchContacts, selectors } from './contactsSlice';
 import { nanoid } from 'nanoid';
 import handleOnContactClick from '../utils/handleOnContactClick';
 
@@ -17,10 +17,10 @@ const ContactsRedux = () => {
         dispatch(fetchContacts());
     }, [dispatch]);
 
-    const contacts = useSelector((state) => state.contacts.contacts);
-    const selectedId = useSelector((state) => state.contacts.selectedId);
-    const isLoading = useSelector((state) => state.contacts.isLoading);
-    const error = useSelector((state) => state.contacts.error);
+    const contacts = useSelector(selectors.selectContacts)
+    const selectedId = useSelector(selectors.selectSelectedId);
+    const isLoading = useSelector(selectors.selectIsLoading);
+    const error = useSelector(selectors.selectError);
 
     if (isLoading) {
         return 'loading...';

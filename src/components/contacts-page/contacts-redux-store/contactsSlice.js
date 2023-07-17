@@ -5,7 +5,7 @@ const initialState = {
     contacts: [],
     isLoading: false,
     error: null,
-    selectedId: null
+    selectedId: null,
 };
 
 export const fetchContacts = createAsyncThunk(
@@ -52,4 +52,10 @@ export const contactsSlice = createSlice({
 });
 
 export const { submit, remove, select } = contactsSlice.actions;
+export const selectors = {
+    selectContacts: (state) => state.contacts.contacts,
+    selectSelectedId: (state) => state.contacts.selectedId,
+    selectIsLoading: (state) => state.contacts.isLoading,
+    selectError: (state) => state.contacts.error,
+};
 export default contactsSlice.reducer;
