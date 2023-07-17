@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { USERS } from '../../../endpoints';
+import { arrayMove } from '@dnd-kit/sortable';
 
 const initialState = {
     contacts: [],
@@ -35,6 +36,18 @@ export const contactsSlice = createSlice({
                 state.selectedId = action.payload;
             }
         },
+        move(state, action) {
+            const { active, over } = action.payload;
+            if (active.id !== over.id) {
+                const activeIndex = state.contacts.indexOf(active.id);
+                const overIndex = state.contacts.indexOf(over.id);
+                state.contacts = arrayMove(
+                    state.contacts,
+                    activeIndex,
+                    overIndex
+                );
+            }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchContacts.pending, (state) => {
@@ -51,7 +64,7 @@ export const contactsSlice = createSlice({
     },
 });
 
-export const { submit, remove, select } = contactsSlice.actions;
+export const { submit, remove, select, move } = contactsSlice.actions;
 export const selectors = {
     selectContacts: (state) => state.contacts.contacts,
     selectSelectedId: (state) => state.contacts.selectedId,
