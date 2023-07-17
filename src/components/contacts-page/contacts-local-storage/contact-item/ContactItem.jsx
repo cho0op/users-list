@@ -1,4 +1,6 @@
 import styles from '../Contacts.module.css';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const ContactsItem = ({
     id,
@@ -7,25 +9,29 @@ const ContactsItem = ({
     selectedId,
     onSelectClick,
     onDeleteClick,
-    onContactClick
+    onContactClick,
 }) => {
-
+    const { attributes, listeners, setNodeRef, transform, transition } =
+        useSortable({ id: id });
     const selectedStyle = {
         background: '#d6d6ff',
+        transform: CSS.Transform.toString(transform),
+        transition,
     };
     const unSelectedStyle = {
         background: '#eaeafe',
+        transform: CSS.Transform.toString(transform),
+        transition,
     };
 
     return (
         <div
             className={styles.rect}
-            style={
-                id === selectedId 
-                    ? selectedStyle
-                    : unSelectedStyle
-            }
+            style={id === selectedId ? selectedStyle : unSelectedStyle}
             onClick={() => onContactClick(id)}
+            ref={setNodeRef}
+            {...attributes}
+            {...listeners}
         >
             <div className={styles.contact_item__content}>
                 <div className={styles.name}>{name}</div>

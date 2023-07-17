@@ -4,9 +4,21 @@ import { useEffect } from 'react';
 import ContactCreation from '../contact-creation/ContactCreation';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { submit, remove, select, fetchContacts, selectors } from './contactsSlice';
 import { nanoid } from 'nanoid';
 import handleOnContactClick from '../utils/handleOnContactClick';
+import {
+    submit,
+    remove,
+    select,
+    move,
+    fetchContacts,
+    selectors,
+} from './contactsSlice';
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import {
+    SortableContext,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 
 const ContactsRedux = () => {
     const navigate = useNavigate();
@@ -17,7 +29,7 @@ const ContactsRedux = () => {
         dispatch(fetchContacts());
     }, [dispatch]);
 
-    const contacts = useSelector(selectors.selectContacts)
+    const contacts = useSelector(selectors.selectContacts);
     const selectedId = useSelector(selectors.selectSelectedId);
     const isLoading = useSelector(selectors.selectIsLoading);
     const error = useSelector(selectors.selectError);
@@ -56,6 +68,10 @@ const ContactsRedux = () => {
         handleOnContactClick(id, contacts, url, navigate);
     }
 
+    function handleDragEnd(event) {
+        dispatch(move(event));
+    }
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
@@ -64,18 +80,28 @@ const ContactsRedux = () => {
                     <NavLink to="/"> --- Go to local storage</NavLink>
                 </h3>
                 <ContactCreation onSubmit={onSubmit} />
-                {contacts.map((item) => (
-                    <ContactsItem
-                        key={item.id}
-                        id={item.id}
-                        name={item.name}
-                        phone={item.phone}
-                        selectedId={selectedId}
-                        onSelectClick={onSelectClick}
-                        onDeleteClick={onDeleteClick}
-                        onContactClick={onContactClick}
-                    />
-                ))}
+                <DndContext
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                >
+                    <SortableContext
+                        items={contacts}
+                        strategy={verticalListSortingStrategy}
+                    >
+                        {contacts.map((item) => (
+                            <ContactsItem
+                                key={item.id}
+                                id={item.id}
+                                name={item.name}
+                                phone={item.phone}
+                                selectedId={selectedId}
+                                onSelectClick={onSelectClick}
+                                onDeleteClick={onDeleteClick}
+                                onContactClick={onContactClick}
+                            />
+                        ))}
+                    </SortableContext>
+                </DndContext>
             </div>
         </div>
     );
