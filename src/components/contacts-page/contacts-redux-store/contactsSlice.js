@@ -5,7 +5,7 @@ const initialState = {
     contacts: [],
     isLoading: false,
     error: null,
-    selectedId: 0
+    selectedId: null
 };
 
 export const fetchContacts = createAsyncThunk(
@@ -30,7 +30,7 @@ export const contactsSlice = createSlice({
         },
         select(state, action) {
             if (state.selectedId === action.payload) {
-                state.selectedId = 0;
+                state.selectedId = null;
             } else {
                 state.selectedId = action.payload;
             }
