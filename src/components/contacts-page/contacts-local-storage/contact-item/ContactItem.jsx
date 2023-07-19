@@ -33,6 +33,13 @@ const ContactsItem = ({
             {...attributes}
             {...listeners}
         >
+            <div className={styles.drag_icon}>
+                <img
+                    className={styles.drag_img}
+                    src={require('../img/drag.png')}
+                    alt=""
+                />
+            </div>
             <div className={styles.contact_item__content}>
                 <div className={styles.name}>{name}</div>
                 <div className={styles.phone}>{phone}</div>
