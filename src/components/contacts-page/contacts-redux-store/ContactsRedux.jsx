@@ -14,7 +14,13 @@ import {
     fetchContacts,
     selectors,
 } from './contactsSlice';
-import { DndContext, closestCenter } from '@dnd-kit/core';
+import {
+    DndContext,
+    closestCenter,
+    useSensor,
+    MouseSensor,
+    useSensors,
+} from '@dnd-kit/core';
 import {
     SortableContext,
     verticalListSortingStrategy,
@@ -33,6 +39,18 @@ const ContactsRedux = () => {
     const selectedId = useSelector(selectors.selectSelectedId);
     const isLoading = useSelector(selectors.selectIsLoading);
     const error = useSelector(selectors.selectError);
+
+    const onClickSensor = useSensor(MouseSensor, {
+        activationConstraint: {
+            delay: 250,
+            tolerance: 10,
+        },
+        whileActive: ({ e }) => {
+            e.stopPropagation();
+        },
+    });
+
+    const sensors = useSensors(onClickSensor);
 
     if (isLoading) {
         return 'loading...';
@@ -83,6 +101,7 @@ const ContactsRedux = () => {
                 <DndContext
                     collisionDetection={closestCenter}
                     onDragEnd={handleDragEnd}
+                    sensors={sensors}
                 >
                     <SortableContext
                         items={contacts}
