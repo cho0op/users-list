@@ -41,10 +41,7 @@ const ContactsRedux = () => {
     const error = useSelector(selectors.selectError);
 
     const onClickSensor = useSensor(MouseSensor, {
-        activationConstraint: {
-            delay: 250,
-            tolerance: 10,
-        },
+        activationConstraint: { distance: 10 },
         whileActive: ({ e }) => {
             e.stopPropagation();
         },
