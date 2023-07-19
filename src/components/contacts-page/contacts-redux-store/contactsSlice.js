@@ -39,8 +39,12 @@ export const contactsSlice = createSlice({
         move(state, action) {
             const { active, over } = action.payload;
             if (active.id !== over.id) {
-                const activeIndex = state.contacts.indexOf(active.id);
-                const overIndex = state.contacts.indexOf(over.id);
+                const activeIndex = state.contacts.findIndex(
+                    (item) => item.id === active.id
+                );
+                const overIndex = state.contacts.findIndex(
+                    (item) => item.id === over.id
+                );
                 state.contacts = arrayMove(
                     state.contacts,
                     activeIndex,
