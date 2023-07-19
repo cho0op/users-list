@@ -2,8 +2,9 @@
     margin-top: 1%;
     margin-bottom: 1%;
     padding: 3%;
+    padding-left: 1%;
     display: grid;
-    grid-template-columns: 1fr 10%;
+    grid-template-columns: 6.5% 1fr 10%;
     transition: all 0.1s;
 }
 
@@ -56,9 +57,19 @@
     transition: all 0.3s;
 }
 
+.drag_icon {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.drag_img{
+    height: 2rem;
+}
+
 @media (max-width: 1000px) {
     .rect {
-        grid-template-columns: 1fr 20%;
+        grid-template-columns: 10% 1fr 20%;
     }
 
     .name {
@@ -76,5 +87,9 @@
 
     .button_img {
         height: 1rem;
+    }
+
+    .drag_img{
+        height: 1.5rem;
     }
 }
