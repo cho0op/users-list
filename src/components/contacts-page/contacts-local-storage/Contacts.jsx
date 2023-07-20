@@ -10,8 +10,6 @@ import handleOnContactClick from '../utils/handleOnContactClick';
 import {
     DndContext,
     closestCenter,
-    useSensor,
-    MouseSensor,
     useSensors,
 } from '@dnd-kit/core';
 import {
@@ -19,8 +17,9 @@ import {
     verticalListSortingStrategy,
     arrayMove,
 } from '@dnd-kit/sortable';
+import withDragAndDrop from '../hocs/withDragAndDrop';
 
-const Contacts = () => {
+const Contacts = ({ onClickSensor }) => {
     const [selectedId, setSelectedId] = useState(0);
     const navigate = useNavigate();
     const url = '/contacts';
@@ -31,13 +30,6 @@ const Contacts = () => {
         error,
         setData: setContacts,
     } = useFetch(USERS.USERS());
-
-    const onClickSensor = useSensor(MouseSensor, {
-        activationConstraint: { distance: 10 },
-        whileActive: ({ e }) => {
-            e.stopPropagation();
-        },
-    });
 
     const sensors = useSensors(onClickSensor);
 
@@ -128,4 +120,6 @@ const Contacts = () => {
     );
 };
 
-export default Contacts;
+const ContactsWithDragAndDrop = withDragAndDrop(Contacts);
+
+export default ContactsWithDragAndDrop;
