@@ -7,4 +7,10 @@ export const store = configureStore({
         contacts: contactsSlice,
         contact: contactSlice,
     },
+    middleware:(getDefaultMiddleware)=>
+    getDefaultMiddleware({
+        serializableCheck:{
+            ignoredActions:['contacts/move']
+        }
+    })
 });

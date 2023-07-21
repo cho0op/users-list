@@ -7,8 +7,19 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import useFetch from './useFetch/useFetch';
 import { nanoid } from 'nanoid';
 import handleOnContactClick from '../utils/handleOnContactClick';
+import {
+    DndContext,
+    closestCenter,
+    useSensors,
+} from '@dnd-kit/core';
+import {
+    SortableContext,
+    verticalListSortingStrategy,
+    arrayMove,
+} from '@dnd-kit/sortable';
+import withDragAndDrop from '../hocs/withDragAndDrop';
 
-const Contacts = () => {
+const Contacts = ({ onClickSensor }) => {
     const [selectedId, setSelectedId] = useState(0);
     const navigate = useNavigate();
     const url = '/contacts';
@@ -19,6 +30,8 @@ const Contacts = () => {
         error,
         setData: setContacts,
     } = useFetch(USERS.USERS());
+
+    const sensors = useSensors(onClickSensor);
 
     if (isPending) {
         return <div>loading...</div>;
@@ -60,6 +73,17 @@ const Contacts = () => {
         handleOnContactClick(id, contacts, url, navigate);
     }
 
+    function handleDragEnd(event) {
+        const { active, over } = event;
+        if (active.id !== over.id) {
+            const activeIndex = contacts.findIndex(
+                (item) => item.id === active.id
+            );
+            const overIndex = contacts.findIndex((item) => item.id === over.id);
+            setContacts(() => arrayMove(contacts, activeIndex, overIndex));
+        }
+    }
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
@@ -68,21 +92,34 @@ const Contacts = () => {
                     <NavLink to="/redux"> --- Go to redux</NavLink>
                 </h3>
                 <ContactCreation onSubmit={onSubmit} />
-                {contacts.map((item) => (
-                    <ContactsItem
-                        key={item.id}
-                        id={item.id}
-                        name={item.name}
-                        phone={item.phone}
-                        selectedId={selectedId}
-                        onSelectClick={onSelectClick}
-                        onDeleteClick={onDeleteClick}
-                        onContactClick={onContactClick}
-                    />
-                ))}
+                <DndContext
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                    sensors={sensors}
+                >
+                    <SortableContext
+                        items={contacts}
+                        strategy={verticalListSortingStrategy}
+                    >
+                        {contacts.map((item) => (
+                            <ContactsItem
+                                key={item.id}
+                                id={item.id}
+                                name={item.name}
+                                phone={item.phone}
+                                selectedId={selectedId}
+                                onSelectClick={onSelectClick}
+                                onDeleteClick={onDeleteClick}
+                                onContactClick={onContactClick}
+                            />
+                        ))}
+                    </SortableContext>
+                </DndContext>
             </div>
         </div>
     );
 };
 
-export default Contacts;
+const ContactsWithDragAndDrop = withDragAndDrop(Contacts);
+
+export default ContactsWithDragAndDrop;

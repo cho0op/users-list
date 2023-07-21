@@ -17,16 +17,15 @@ import {
 import {
     DndContext,
     closestCenter,
-    useSensor,
-    MouseSensor,
     useSensors,
 } from '@dnd-kit/core';
 import {
     SortableContext,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import withDragAndDrop from '../hocs/withDragAndDrop';
 
-const ContactsRedux = () => {
+const ContactsRedux = ({ onClickSensor }) => {
     const navigate = useNavigate();
     const url = '/contactsredux';
     const dispatch = useDispatch();
@@ -39,13 +38,6 @@ const ContactsRedux = () => {
     const selectedId = useSelector(selectors.selectSelectedId);
     const isLoading = useSelector(selectors.selectIsLoading);
     const error = useSelector(selectors.selectError);
-
-    const onClickSensor = useSensor(MouseSensor, {
-        activationConstraint: { distance: 10 },
-        whileActive: ({ e }) => {
-            e.stopPropagation();
-        },
-    });
 
     const sensors = useSensors(onClickSensor);
 
@@ -123,4 +115,6 @@ const ContactsRedux = () => {
     );
 };
 
-export default ContactsRedux;
+const ContactsReduxWithDragAndDrop = withDragAndDrop(ContactsRedux);
+
+export default ContactsReduxWithDragAndDrop;
